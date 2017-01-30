@@ -7,18 +7,31 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Battleship Game</title>
     <!-- Bootstrap -->
-    <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="Client/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <p>Hello world!</p>
-<div class="container">
-    <div class="col-lg-8">
-        <input type="text" name="guwno">
+<div class="globalCont">
+    <div class="playerGround">
+        <div class="playerTable">
+            <table class="table table-responsive" id="playerT"></table>
+        </div>
+        <div class="readyButton"></div>
+        <div class="turnButton"></div>
+        <div class="availableShips"></div>
+        <div class="firebutton"></div>
     </div>
-    <div class="col-lg-4"></div>
+    <div class="enemyGround">
+        <div class="enemyTable">
+            <table class="table table-responsive" id="enemyT"></table>
+        </div>
+    </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="Bootstrap/js/bootstrap.min.js"></script>
+<script src="Client/Bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script src="Client/ClientScript.js"></script>
+<link href="Client/BattleshipGame.css" rel="stylesheet">
 </body>
 </html>
