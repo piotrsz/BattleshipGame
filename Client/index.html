@@ -10,21 +10,59 @@
     <link href="Client/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<p>Hello world!</p>
-<div class="globalCont">
-    <div class="playerGround">
-        <div class="playerTable">
-            <table class="table table-responsive" id="playerT"></table>
+<!-- ADDING USER PANEL -->
+<div class="container">
+    <div class="row" id="userFormArea">
+        <div class="col-md-12">
+            <form id="userForm">
+                <div class="form-group">
+                    <label>Enter username:</label>
+                    <input class="form-control" id="username" />
+                    </br>
+                    <input type="submit" class="btn btn-primary" value="Login"/>
+                </div>
+            </form>
         </div>
-        <div class="readyButton"></div>
-        <div class="turnButton"></div>
-        <div class="availableShips"></div>
-        <div class="firebutton"></div>
+    </div>
+</div>
+<!-- GAME PANEL -->
+<div class="globalCont">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <h1 class="centerText">Battleships Game</h1>
+            </div>
+        </div>
+    </nav>
+    <div class="playerGround">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="centerText">This is your Table</h4>
+                <table class="table table-responsive playerT" id="playerTable"></table>
+            </div>
+            <div class="col-md-3">
+                <div class="well">
+                    <h3>Players online:</h3>
+                    <ul class="list-group" id="users"></ul>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div id="buttonsGroup" class="panel panel-default control-panel">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" id="readyButton">Click if you are ready to play!</button>
+                        <button type="button" class="btn btn-default" id="turnButton">Turn over</button>
+                        <button type="button" class="btn btn-default" id="fireButton">Fire!</button>
+                    </div>
+                    <div id="enemyShipsTick">
+                        <p>Enemy ships left: <span id="enemyShips"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="enemyGround">
-        <div class="enemyTable">
-            <table class="table table-responsive" id="enemyT"></table>
-        </div>
+        <h4 class="centerText">This is your enemy's Table</h4>
+        <table class="table table-responsive enemyT" id="enemyTable"></table>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

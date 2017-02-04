@@ -1,3 +1,57 @@
-td {
-    border: #000000;
+.navbar {
+    margin: 0;
+    background: #4044a1;
+    border-color: #4044a1;
+    border-radius: 0;
+}
+
+.globalCont {
+    position: fixed;
+    padding:0;
+    margin:0;
+    top:0;
+    left:0;
+    background: #EEE;
+    height: 100%;
+    width: 100%;
+    overflow:auto;
+    display:none;
+}
+
+.playerGround {
+    width: 60%;
+    background: #8c8c8c;
+    float: left;
+    height: 100%;
+    padding: 5px;
+}
+
+.enemyGround {
+    background: white;
+    float: right;
+    height: 100%;
+    width: 40%;
+    padding: 5px;
+}
+
+.playerT {
+    height: 500px;
+    width: 500px;
+    border: 3px solid black;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
+#buttonsGroup {
+    float: left;
+}
+
+.centerText {
+    text-align: center;
+}
+
+.control-panel {
+    background: #8c8c8c;
+    border-color: #8c8c8c;
+    margin: 0 auto;
 }

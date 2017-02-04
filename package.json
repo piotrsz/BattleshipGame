@@ -1,7 +1,7 @@
 {
   "name": "bgame",
   "version": "1.0.0",
-  "description": "",
+  "description": "Battleships game made in Node.js using Socket.io",
   "main": "app.js",
   "dependencies": {},
   "devDependencies": {},
@@ -10,4 +10,8 @@
   },
   "author": "",
   "license": "ISC"
+  "dependencies": {
+    "socket.io": "*",
+    "express": "*"
+  }
 }

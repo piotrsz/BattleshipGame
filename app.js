@@ -9,27 +9,32 @@ app.get('/',function(req,res){
 app.use('/client', express.static(__dirname + '/client'));
 
 serv.listen(2000);
-console.log('Server started!');
+console.log('Server running..');
 
-var usernames = {};
-var rooms = ['Lobby'];
+var users = [];
+var connections = [];
 
 io.sockets.on('connection', function(socket){
+    connections.push(socket);
+    console.log('Connected: %s sockets connected', connections.length)
 
-    console.log('Socket connection!');
-
-    socket.on('adduser', function(username){
-        socket.username = username;
-        socket.room = 'Lobby';
-        usernames[username] = username;
-        socket.join('Lobby');
-        socket.emit('updaterooms', rooms, 'Lobby');
-        console.log(usernames);
+    //Disconnect
+    socket.on('disconnect', function(data){
+        users.splice(users.indexOf(socket.username), 1);
+        updateUsernames();
+        connections.splice(connections.indexOf(socket), 1);
+        console.log('Disconnected: %s sockets left.', connections.length);
     });
 
-    socket.on('create', function(room){
-       rooms.push(room);
-       socket.emit('updaterooms', rooms, socket.room);
+    //New user
+    socket.on('new user', function(data, callback){
+        callback(true);
+        socket.username = data;
+        users.push(socket.username);
+        updateUsernames();
     });
 });
 
+function updateUsernames(){
+    io.sockets.emit('get users', users);
+};
