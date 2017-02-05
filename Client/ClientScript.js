@@ -6,6 +6,18 @@ var $userForm = $('#userForm');
 var $userFormArea = $('#userFormArea');
 var $username = $('#username');
 var $gameArea = $('.globalCont');
+var shipsPositions = [];
+
+var createOnClickHandler = function(e) {
+    var clickedId = e.target.getAttribute('id');
+    if (shipsPositions.length >= 9) {
+        return
+    } else {
+        shipsPositions.push(clickedId);
+        console.log(shipsPositions);
+        e.target.setAttribute('style', "background: blue");
+    }
+};
 
 for (var i=0; i <= 6; i++){
     var tr = document.createElement('tr');
@@ -15,6 +27,7 @@ for (var i=0; i <= 6; i++){
         td.innerHTML = i + ' ' + j;
         td.setAttribute('id', j);
         td.setAttribute('style', "border: 1px solid black");
+        td.addEventListener('click', createOnClickHandler);
         tr.appendChild(td);
     }
     playerTable.appendChild(tr);
@@ -42,5 +55,11 @@ socket.on('get users', function(data){
     users.innerHTML = html;
 });
 
+//makeShips();
 
+
+function makeShips(){
+    prompt('Rozstaw swoje statki!');
+    socket.emit('add ships', shipsPositions);
+}
 
