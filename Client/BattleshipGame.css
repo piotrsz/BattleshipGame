@@ -1,6 +1,7 @@
 .navbar {
     margin: 0;
-    background: #4044a1;
+    height: 70px;
+    background: #cac7db;
     border-color: #4044a1;
     border-radius: 0;
 }
@@ -35,8 +36,8 @@
 }
 
 .playerT {
-    height: 500px;
-    width: 500px;
+    height: 400px;
+    width: 400px;
     border: 3px solid black;
     margin: 0 auto;
     margin-bottom: 15px;

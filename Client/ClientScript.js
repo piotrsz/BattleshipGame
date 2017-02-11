@@ -7,11 +7,17 @@ var $userFormArea = $('#userFormArea');
 var $username = $('#username');
 var $gameArea = $('.globalCont');
 var shipsPositions = [];
+var readyFlag = false;
+var channel = "firstChannel";
 
-var createOnClickHandler = function(e) {
-    var clickedId = e.target.getAttribute('id');
+var createShips = function(e) {
+    var clickedId = e.target.getAttribute('id') + e.target.parentNode.getAttribute('id');
     if (shipsPositions.length >= 9) {
-        return
+        socket.emit('add ships', shipsPositions);
+        console.log("SHIPS SENT");
+        readyFlag = true;
+        socket.emit('game ready', readyFlag);
+        console.log("READY SENT");
     } else {
         shipsPositions.push(clickedId);
         console.log(shipsPositions);
@@ -27,7 +33,6 @@ for (var i=0; i <= 6; i++){
         td.innerHTML = i + ' ' + j;
         td.setAttribute('id', j);
         td.setAttribute('style', "border: 1px solid black");
-        td.addEventListener('click', createOnClickHandler);
         tr.appendChild(td);
     }
     playerTable.appendChild(tr);
@@ -36,12 +41,15 @@ for (var i=0; i <= 6; i++){
 var cln = playerTable.cloneNode(true);
 enemyTable.appendChild(cln);
 
+playerTable.addEventListener('click', createShips);
+
 $userForm.submit(function(e){
     e.preventDefault();
     socket.emit('new user', $username.val(), function(data){
         if (data) {
             $userFormArea.hide();
             $gameArea.show();
+            alert("Rozstaw statki!");
         }
     });
     $username.val('');
@@ -55,11 +63,13 @@ socket.on('get users', function(data){
     users.innerHTML = html;
 });
 
-//makeShips();
+socket.on('connect', function(){
+    socket.emit('joinChannel', {
+        channel: channel
+    });
+});
 
-
-function makeShips(){
-    prompt('Rozstaw swoje statki!');
-    socket.emit('add ships', shipsPositions);
-}
-
+socket.on('Start game', function(){
+    var gameMoment = document.getElementById('gameMoment');
+    
+})

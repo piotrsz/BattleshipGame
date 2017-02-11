@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "description": "Battleships game made in Node.js using Socket.io",
   "main": "app.js",
-  "dependencies": {},
+  "dependencies": {
+    "express": "*",
+    "lodash": "^4.17.4",
+    "socket.io": "*"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC"
-  "dependencies": {
-    "socket.io": "*",
-    "express": "*"
-  }
 }
