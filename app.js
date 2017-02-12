@@ -8,7 +8,7 @@ var connections = [];
 var users = {};
 var readyChecker = {};
 
-app.get('/',function(req,res){
+app.get('/', function (req, res) {
     res.sendFile(__dirname + '/client/index.html');
 });
 app.use('/client', express.static(__dirname + '/client'));
@@ -16,7 +16,7 @@ app.use('/client', express.static(__dirname + '/client'));
 serv.listen(2000);
 console.log('Server running..');
 
-io.sockets.on('connection', function(socket){
+io.sockets.on('connection', function (socket) {
     connections.push(socket);
     console.log('Connected: %s sockets connected', connections.length);
 
@@ -24,7 +24,7 @@ io.sockets.on('connection', function(socket){
     socket.channel = "";
 
     //Disconnect
-    socket.on('disconnect', function(data){
+    socket.on('disconnect', function (data) {
         usersList.splice(usersList.indexOf(socket.username), 1);
         updateUsernames();
         connections.splice(connections.indexOf(socket), 1);
@@ -32,7 +32,7 @@ io.sockets.on('connection', function(socket){
     });
 
     //New user
-    socket.on('new user', function(data, callback){
+    socket.on('new user', function (data, callback) {
         callback(true);
         socket.username = data;
         usersList.push(socket.username);
@@ -41,36 +41,48 @@ io.sockets.on('connection', function(socket){
     });
 
     //Channel management
-    socket.on('joinChannel', function(data){
+    socket.on('joinChannel', function (data) {
         socket.channel = data.channel;
     });
 
     //Ships positions
-    socket.on('add ships', function(data){
+    socket.on('add ships', function (data) {
         socket.ships = data;
         console.log("Ships position recieved: %s", data);
     });
 
     //Game ready flag
-    socket.on('game ready', function(data){
+    socket.on('game ready', function (data) {
         socket.ready = data;
         readyChecker[socket.username] = socket.ready;
-        if (Object.keys(readyChecker).length === 2 && isPropTrue(readyChecker) === true){
+        if (Object.keys(readyChecker).length === 2 && isPropTrue(readyChecker) === true) {
             console.log("both players are ready");
-            socket.emit('Start game');
+            socket.emit('start game');
         } else {
             console.log("not ready");
         }
     });
+
+    //Aim coming from player
+    socket.on('aim', function(data) {
+        socket.broadcast.emit('checkAim', data);
+    });
+
+    socket.on('hit', function(data){
+       socket.ships.splice(socket.ships.indexOf(data), 1);
+       console.log(socket.ships);
+       socket.broadcast.emit('hit done', data);
+       console.log("hit done");
+    });
 });
 
-function updateUsernames(){
+function updateUsernames() {
     io.sockets.emit('get users', usersList);
 }
 
-function isPropTrue(obj){
-    for (var prop in obj){
-        if(!obj[prop] === true){
+function isPropTrue(obj) {
+    for (var prop in obj) {
+        if (!obj[prop] === true) {
             return false;
         }
         else {
