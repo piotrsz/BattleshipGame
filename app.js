@@ -57,7 +57,7 @@ io.sockets.on('connection', function (socket) {
         readyChecker[socket.username] = socket.ready;
         if (Object.keys(readyChecker).length === 2 && isPropTrue(readyChecker) === true) {
             console.log("both players are ready");
-            socket.emit('start game');
+            io.emit('start game');
         } else {
             console.log("not ready");
         }
@@ -78,7 +78,7 @@ io.sockets.on('connection', function (socket) {
 
     //End of a game
     socket.on('defeat', function(){
-        socket.emit('game over');
+        io.emit('game over');
     })
 });
 
