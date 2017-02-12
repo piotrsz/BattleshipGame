@@ -1,3 +1,7 @@
+.form-group {
+    margin: 100px;
+}
+
 .navbar {
     margin: 0;
     height: 70px;
@@ -43,10 +47,6 @@
     margin-bottom: 15px;
 }
 
-#buttonsGroup {
-    float: left;
-}
-
 .centerText {
     text-align: center;
 }
@@ -55,4 +55,14 @@
     background: #8c8c8c;
     border-color: #8c8c8c;
     margin: 0 auto;
+}
+
+#buttonsGroup {
+    float: left;
+}
+
+#currentUser {
+    margin: 10px 0 0 20px;
+    color: #0f0f0f;
+    position: absolute;
 }

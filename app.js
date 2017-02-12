@@ -1,12 +1,12 @@
 var express = require('express');
-var app = express();
-var serv = require('http').Server(app);
-var io = require('socket.io')(serv, {});
-var _ = require('lodash');
-var usersList = [];
-var connections = [];
-var users = {};
-var readyChecker = {};
+    app = express();
+    serv = require('http').Server(app);
+    io = require('socket.io')(serv, {});
+    _ = require('lodash');
+    usersList = [];
+    connections = [];
+    users = {};
+    readyChecker = {};
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/client/index.html');
@@ -68,12 +68,18 @@ io.sockets.on('connection', function (socket) {
         socket.broadcast.emit('checkAim', data);
     });
 
+    //Hit coming from second player
     socket.on('hit', function(data){
        socket.ships.splice(socket.ships.indexOf(data), 1);
        console.log(socket.ships);
        socket.broadcast.emit('hit done', data);
        console.log("hit done");
     });
+
+    //End of a game
+    socket.on('defeat', function(){
+        socket.emit('game over');
+    })
 });
 
 function updateUsernames() {
