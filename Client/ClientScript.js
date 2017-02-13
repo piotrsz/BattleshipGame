@@ -1,20 +1,23 @@
-var socket = io();
-    playerTable = document.getElementById('playerTable');
-    gameMoment = document.getElementById('gameMoment');
-    enemyTable = document.getElementById('enemyTable');
-    users = document.getElementById('users');
-    currentUser = document.getElementById('currentUser');
-    $userForm = $('#userForm');
-    $userFormArea = $('#userFormArea');
-    $username = $('#username');
-    $gameArea = $('.globalCont');
-    shipsPositions = [];
-    readyFlag = false;
-    channel = "firstChannel";
+var socket = io(),
+    playerTable = document.getElementById('playerTable'),
+    gameMoment = document.getElementById('gameMoment'),
+    enemyTable = document.getElementById('enemyTable'),
+    users = document.getElementById('users'),
+    currentUser = document.getElementById('currentUser'),
+    $userForm = $('#userForm'),
+    $userFormArea = $('#userFormArea'),
+    $username = $('#username'),
+    $gameArea = $('.globalCont'),
+    shipsPositions = [],
+    readyFlag = false,
+    channel = "firstChannel",
+    maxShipPositions = 9,
+    playerTableSize = 6;
 
 var createShips = function (e) {
     var clickedId = e.target.getAttribute('id');
-    if (shipsPositions.length === 9) {
+
+    if (shipsPositions.length === maxShipPositions) {
         socket.emit('add ships', shipsPositions);
         readyFlag = true;
         socket.emit('game ready', readyFlag);
@@ -50,10 +53,10 @@ $userForm.submit(function (e) {
     $username.val('');
 });
 
-for (var i = 0; i <= 6; i++) {
+for (var i = 0; i <= playerTableSize; i++) {
     var tr = document.createElement('tr');
     //tr.setAttribute('id', i);
-    for (var j = 0; j <= 6; j++) {
+    for (var j = 0; j <= playerTableSize; j++) {
         var td = document.createElement('td');
         var id = i + '' + j;
         td.innerHTML = id;
@@ -63,7 +66,6 @@ for (var i = 0; i <= 6; i++) {
     }
     playerTable.appendChild(tr);
 }
-;
 
 var cln = playerTable.cloneNode(true);
 cln.setAttribute('id', "enemyTable");
