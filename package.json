@@ -1,6 +1,6 @@
 {
-  "name": "bgame",
-  "version": "1.0.0",
+  "name": "battleship-game",
+  "version": "0.1.0",
   "description": "Battleships game made in Node.js using Socket.io",
   "main": "app.js",
   "dependencies": {
@@ -10,8 +10,25 @@
   },
   "devDependencies": {},
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Michal-Parteka1337",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Michal-Parteka1337/BattleshipGame.git"
+  },
+  "keywords": [
+    "game",
+    "multiplayer",
+    "battle",
+    "battleships",
+    "sea",
+    "node"
+  ],
+  "bugs": {
+    "url": "https://github.com/Michal-Parteka1337/BattleshipGame/issues"
+  },
+  "homepage": "https://github.com/Michal-Parteka1337/BattleshipGame#readme"
 }

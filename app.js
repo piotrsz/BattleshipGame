@@ -1,20 +1,25 @@
+var PORT = 2000;
+
 var express = require('express');
-    app = express();
-    serv = require('http').Server(app);
-    io = require('socket.io')(serv, {});
-    _ = require('lodash');
-    usersList = [];
-    connections = [];
-    users = {};
-    readyChecker = {};
+var app = express();
+var serv = require('http').Server(app);
+var io = require('socket.io')(serv, {});
+var _ = require('lodash');
+
+
+var usersList = [];
+var connections = [];
+var users = {};
+var readyChecker = {};
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/client/index.html');
 });
+
 app.use('/client', express.static(__dirname + '/client'));
 
-serv.listen(2000);
-console.log('Server running..');
+serv.listen(PORT);
+console.log('Server running on port ' + PORT);
 
 io.sockets.on('connection', function (socket) {
     connections.push(socket);
