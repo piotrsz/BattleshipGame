@@ -1,19 +1,20 @@
-var express = require('express');
-    app = express();
-    serv = require('http').Server(app);
-    io = require('socket.io')(serv, {});
-    _ = require('lodash');
-    usersList = [];
-    connections = [];
-    users = {};
-    readyChecker = {};
+var express = require('express'),
+    app = express(),
+    serv = require('http').Server(app),
+    io = require('socket.io')(serv, {}),
+    _ = require('lodash'),
+    usersList = [],
+    connections = [],
+    users = {},
+    readyChecker = {},
+    serverPort = 2000;
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/client/index.html');
 });
 app.use('/client', express.static(__dirname + '/client'));
 
-serv.listen(2000);
+serv.listen(serverPort);
 console.log('Server running..');
 
 io.sockets.on('connection', function (socket) {
@@ -88,11 +89,6 @@ function updateUsernames() {
 
 function isPropTrue(obj) {
     for (var prop in obj) {
-        if (!obj[prop] === true) {
-            return false;
-        }
-        else {
-            return true;
-        }
+        return !obj[prop] !== true;
     }
 }
